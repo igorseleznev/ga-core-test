@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+        logicalFilePath="20210329_client_balance.xml">
+
+    <changeSet id="20210329-1" author="iseleznev">
+        <createTable tableName="client_balance">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="client_user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="decimal(18,2)" remarks="Баланс клиента">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="client_balance" baseColumnNames="client_user_id"
+                                 constraintName="fk_client_balance_client_user_id"
+                                 referencedTableName="client_user"
+                                 referencedColumnNames="id"/>
+        <createIndex tableName="client_balance" indexName="idx_unique_client_balance_client_user_id" unique="true">
+            <column name="client_user_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,8 @@
+spring.application.name: gacoretest
+
+spring.liquibase.change-log: classpath:config/liquibase/master.xml
+spring.datasource.type: com.zaxxer.hikari.HikariDataSource
+spring.datasource.url: jdbc:postgresql://localhost:5432/gacoretest
+spring.datasource.username: postgres
+spring.datasource.password: postgres
+spring.datasource.default-auto-commit: false

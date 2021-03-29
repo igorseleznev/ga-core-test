@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+        logicalFilePath="20210329_client_user.xml">
+
+    <changeSet id="20210329-1" author="iseleznev">
+        <createTable tableName="client_user">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(255)" remarks="Логин клиента">
+                <constraints nullable="false"/>
+            </column>
+            <!-- Этот проект - тестовая задача. В реальности нужно хранить не пароли, а их хэшированное значение. -->
+            <column name="password" type="varchar(255)" remarks="Пароль клиента">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createIndex tableName="client_user" indexName="idx_unique_client_user_login" unique="true">
+            <column name="login"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
