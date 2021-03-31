@@ -6,8 +6,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import ru.seleznev.gacoretest.domain.ClientUser;
 
 import java.util.List;
@@ -30,7 +28,6 @@ public class ClientUserRepository {
     /**
      * @return client_user.id
      */
-    @Transactional
     public Long createClientUser(String login,
                                  String password) {
         final KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -44,7 +41,6 @@ public class ClientUserRepository {
         return keyHolder.getKey().longValue();
     }
 
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public boolean existsByLogin(String login) {
         return namedParameterJdbcTemplate.queryForObject(
                 EXISTS_BY_LOGIN_SQL,
@@ -52,7 +48,6 @@ public class ClientUserRepository {
                 Integer.class) > 0;
     }
 
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Optional<ClientUser> getClientUserBy(String login) {
         List<ClientUser> clientUserList = namedParameterJdbcTemplate.query(
                 GET_CLIENT_USER_BY_LOGIN_SQL,

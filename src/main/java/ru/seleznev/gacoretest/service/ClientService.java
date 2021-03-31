@@ -31,7 +31,6 @@ public class ClientService {
         clientBalanceRepository.createClientBalance(clientUserId, BigDecimal.ZERO);
     }
 
-    @Transactional(readOnly = true)
     public BigDecimal getBalance(String login,
                                  String password) {
         ClientUser clientUser = clientUserRepository.getClientUserBy(login)

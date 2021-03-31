@@ -6,8 +6,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import ru.seleznev.gacoretest.domain.ClientBalance;
 
 import java.math.BigDecimal;
@@ -29,7 +27,6 @@ public class ClientBalanceRepository {
     /**
      * @return client_balance.id
      */
-    @Transactional
     public Long createClientBalance(Long clientUserId,
                                     BigDecimal balance) {
         final KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -43,7 +40,6 @@ public class ClientBalanceRepository {
         return keyHolder.getKey().longValue();
     }
 
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Optional<ClientBalance> getClientBalanceBy(Long clientUserId) {
         List<ClientBalance> clientBalanceList = namedParameterJdbcTemplate.query(
                 GET_CLIENT_BALANCE_SQL,
